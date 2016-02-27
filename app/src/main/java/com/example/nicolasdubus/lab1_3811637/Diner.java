@@ -5,6 +5,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by nicolasdubus on 2016-02-22.
@@ -40,9 +42,14 @@ public class Diner {
 
     public void updateTotal() {
         total = 0.0;
+        Pattern p = Pattern.compile("[0-9]\\.[0-9][0-9]");
         for (int i = 0; i < orderList.size(); i++) {
-            total += Double.parseDouble(orderList.get(i).getText().toString());
+            String text = orderList.get(i).getText().toString();
+            Matcher m = p.matcher(text);
+            if (m.find()) {
+                total += Double.parseDouble(m.group(0));
+            }
         }
-        tvSplitBill.setText(String.format("$%.2f", total));
+        tvSplitBill.setText(String.format("$%,.2f", total));
     }
 }
