@@ -46,6 +46,8 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
         addDinerButton.setOnClickListener(this);
         addButton1.setOnClickListener(this);
         firstCustomer.setOnFocusChangeListener(this);
+        amount1of1.setOnFocusChangeListener(this);
+
 //        addButton1.setOnClickListener(this);
 //        roundButton.setOnClickListener(this);
 //        fortuneButton.setOnClickListener(this);
@@ -95,6 +97,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
             et2.setLayoutParams(amount1of1.getLayoutParams());
             et2.setWidth(amount1of1.getWidth());
             et2.requestFocus();
+            et2.setOnFocusChangeListener(this);
 
             ImageButton ib = new ImageButton(this);
             ib.setImageResource(R.drawable.buy_48);
@@ -143,6 +146,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
                     newOrder.setLayoutParams(amount1of1.getLayoutParams());
                     newOrder.setWidth(amount1of1.getWidth());
                     newOrder.requestFocus();
+                    newOrder.setOnFocusChangeListener(this);
 
                     row3.addView(emptyEditText);
                     row3.addView(newOrder);
@@ -161,6 +165,12 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
         for (int i = 0; i < dinerList.size(); i++) {
             if (v == dinerList.get(i).etName && !hasFocus) {
                 dinerList.get(i).setName();
+            } else {
+                for (int j = 0; j < dinerList.get(i).orderList.size(); j++) {
+                    if (v == dinerList.get(i).orderList.get(j) && !hasFocus) {
+                        dinerList.get(i).updateTotal();
+                    }
+                }
             }
         }
     }

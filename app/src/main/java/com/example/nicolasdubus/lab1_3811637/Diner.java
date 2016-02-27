@@ -11,6 +11,8 @@ import java.util.ArrayList;
  */
 public class Diner {
 
+
+    public double total;
     public EditText etName, etFirstOrder;
     public ImageButton ibAddOrder;
     public TextView tvName, tvSplitBill;
@@ -18,6 +20,7 @@ public class Diner {
 
     public Diner(EditText etName, EditText etFirstOrder, ImageButton ibAddOrder,
                  TextView tv1, TextView tv2) {
+        this.total = 0.00;
         this.orderList = new ArrayList<>();
         this.etName = etName;
         this.etFirstOrder = etFirstOrder;
@@ -33,5 +36,13 @@ public class Diner {
 
     public void newOrder(EditText newOrder) {
         orderList.add(newOrder);
+    }
+
+    public void updateTotal() {
+        total = 0.0;
+        for (int i = 0; i < orderList.size(); i++) {
+            total += Double.parseDouble(orderList.get(i).getText().toString());
+        }
+        tvSplitBill.setText(String.format("$%.2f", total));
     }
 }
