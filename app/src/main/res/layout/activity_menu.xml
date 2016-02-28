@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bg"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TableLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/mainTable"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        android:stretchColumns="*"
+        android:shrinkColumns="*">
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="MENU"
+                android:id="@+id/textView"
+                android:layout_gravity="center_vertical"
+                android:textSize="32dp"
+                android:gravity="center"
+                android:layout_column="0"
+                android:layout_span="3" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp" >
+
+            <TextView
+                android:id="@+id/border"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="1dp"
+                android:layout_span="3"
+                android:background="#000000" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp" >
+
+            <TextView
+                android:id="@+id/border2"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="1dp"
+                android:layout_span="3"
+                android:background="#000000" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Default Tip"
+                android:id="@+id/TipString"
+                android:layout_gravity="center_horizontal" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="15%"
+                android:id="@+id/tipString"
+                android:layout_gravity="center_vertical|right"
+                android:inputType="number"
+                />
+
+            <SeekBar
+                android:id="@+id/tipSlider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:max="50"
+                android:progress="15"
+                android:indeterminate="false"
+                android:layout_span="2" />
+
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp" >
+
+            <TextView
+                android:id="@+id/border5"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="1dp"
+                android:layout_span="3"
+                android:background="#000000" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Default Tax"
+                android:id="@+id/taxTitle"
+                android:layout_gravity="center_horizontal" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="13%"
+                android:id="@+id/taxString"
+                android:layout_gravity="center_vertical|right"
+                android:inputType="number"
+                />
+
+            <SeekBar
+                android:id="@+id/taxSlider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:max="50"
+                android:progress="15"
+                android:indeterminate="false"
+                android:layout_span="2" />
+
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp" >
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="1dp"
+                android:layout_span="3"
+                android:background="#000000" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Default Currency"
+                android:id="@+id/textView4"
+                android:layout_gravity="center_horizontal"
+                android:layout_span="3" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_span="3"
+>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Dollar ($)"
+                android:id="@+id/textView6"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                />
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/currencySwitch"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center"
+                android:checked="false"
+                android:textOn="€"
+                android:textOff="$"
+                android:layout_weight="1"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="(€) Euro"
+                android:id="@+id/textView7"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp" >
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="1dp"
+                android:layout_span="3"
+                android:background="#000000" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Return"
+                android:id="@+id/returnToMain"
+                android:layout_gravity="center"
+                android:layout_column="0"
+                android:gravity="center"
+                android:layout_span="3" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp" >
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="1dp"
+                android:layout_span="3"
+                android:background="#000000" />
+        </TableRow>
+    </TableLayout>
+</ScrollView>

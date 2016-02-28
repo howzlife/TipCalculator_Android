@@ -2,6 +2,7 @@ package com.example.nicolasdubus.lab1_3811637;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,18 +14,21 @@ import android.widget.TableLayout;
 import android.widget.*;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 
 import java.util.ArrayList;
 
+public class MainActivity extends Activity implements OnClickListener, OnFocusChangeListener, OnSeekBarChangeListener {
 
-public class MainActivity extends Activity implements OnClickListener, OnFocusChangeListener {
-
+    private double tipPercentValue, grandTotal, totalTipValue, taxPercentage, totalTaxValue;
+    private SeekBar tipSlider;
     private TableLayout mainTable;
     private ImageButton addDinerButton, addButton1, roundButton, fortuneButton;
-    private EditText firstCustomer, amount1of1;
-    private TextView textSplit1, textSplit1Dollar;
+    private EditText firstCustomer, amount1of1, tipPercent;
+    private TextView textSplit1, textSplit1Dollar, tipDollar, textGTotal2, taxDollar, taxText;
     private ArrayList<Diner> dinerList;
-
+    private Button menuButton, resetButton;
+    private String currency;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,28 +37,51 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
         mainTable = (TableLayout)findViewById(R.id.mainTable);
 
         addDinerButton = (ImageButton)findViewById(R.id.addDinerButton);
-//        addButton1 = (ImageButton)findViewById(R.id.addButton1);
-//        roundButton = (ImageButton)findViewById(R.id.roundButton);
-//        fortuneButton = (ImageButton)findViewById(R.id.fortuneButton);
+
+        totalTipValue = 0.00;
+        grandTotal = 0.00;
 
         firstCustomer = (EditText)findViewById(R.id.firstCustomer);
         amount1of1 = (EditText)findViewById(R.id.amount1of1);
         addButton1 = (ImageButton)findViewById(R.id.addButton1);
         textSplit1 = (TextView)findViewById(R.id.textSplit1);
         textSplit1Dollar = (TextView)findViewById(R.id.textSplit1Dollar);
+        tipPercent = (EditText) findViewById(R.id.tipPercent);
+        tipSlider = (SeekBar) findViewById(R.id.tipSlider);
+        tipDollar = (TextView) findViewById(R.id.tipDollar);
+        textGTotal2 = (TextView) findViewById(R.id.textGTotal2);
+        taxDollar = (TextView) findViewById(R.id.taxDollar);
+        taxText = (TextView) findViewById(R.id.taxText);
+        menuButton = (Button) findViewById(R.id.calculateTotal);
+        resetButton = (Button) findViewById(R.id.resetButton);
 
         addDinerButton.setOnClickListener(this);
         addButton1.setOnClickListener(this);
         firstCustomer.setOnFocusChangeListener(this);
         amount1of1.setOnFocusChangeListener(this);
+        tipPercent.setOnFocusChangeListener(this);
+        tipSlider.setOnSeekBarChangeListener(this);
+        menuButton.setOnClickListener(this);
+        resetButton.setOnClickListener(this);
 
-//        addButton1.setOnClickListener(this);
-//        roundButton.setOnClickListener(this);
-//        fortuneButton.setOnClickListener(this);
+        tipPercentValue = ((TipApplication)this.getApplication()).getDefaultTipPercentage();
+        taxPercentage = ((TipApplication)this.getApplication()).getDefaultTaxPercentage();
+
+        tipPercent.setText(String.format("%,.0f", tipPercentValue * 100) + "%");
+
+        currency = ((TipApplication)this.getApplication()).getCurrency();
 
         dinerList = new ArrayList<>();
         Diner firstDiner = new Diner(firstCustomer, amount1of1, addButton1, textSplit1, textSplit1Dollar);
         dinerList.add(firstDiner);
+
+        amount1of1.setText(currency + "0.00");
+        tipDollar.setText(currency + "0.00");
+        taxDollar.setText(currency + "0.00");
+        textGTotal2.setText(currency + "0.00");
+        textSplit1Dollar.setText(currency + "0.00");
+        taxText.setText(String.format("Tax (%.0f", taxPercentage * 100) + "%):");
+
     }
 
     @Override
@@ -90,7 +117,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
             et1.setWidth(firstCustomer.getWidth());
 
             EditText et2 = new EditText(this);
-            et2.setText("$0.00");
+            et2.setText(currency + "0.00");
             et2.setSelectAllOnFocus(true);
             et2.setInputType(amount1of1.getInputType());
             et2.setGravity(amount1of1.getGravity());
@@ -131,6 +158,12 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
             Diner diner = new Diner(et1, et2, ib, tv1, tv2);
             dinerList.add(diner);
 
+        } else if (v == menuButton) {
+            Intent i = new Intent(getApplicationContext(), SummaryActivity.class);
+            startActivity(i);
+        } else if (v == resetButton) {
+            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(i);
         } else {
             for (int i = 0; i < dinerList.size(); i++) {
                 if (v == dinerList.get(i).ibAddOrder) {
@@ -139,7 +172,7 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
                     emptyEditText.setVisibility(4);
 
                     EditText newOrder = new EditText(this);
-                    newOrder.setText("$0.00");
+                    newOrder.setText(currency + "0.00");
                     newOrder.setSelectAllOnFocus(true);
                     newOrder.setInputType(amount1of1.getInputType());
                     newOrder.setGravity(amount1of1.getGravity());
@@ -162,16 +195,68 @@ public class MainActivity extends Activity implements OnClickListener, OnFocusCh
     }
 
     public void onFocusChange(View v, boolean hasFocus) {
-        for (int i = 0; i < dinerList.size(); i++) {
-            if (v == dinerList.get(i).etName && !hasFocus) {
-                dinerList.get(i).setName();
-            } else {
-                for (int j = 0; j < dinerList.get(i).orderList.size(); j++) {
-                    if (v == dinerList.get(i).orderList.get(j) && !hasFocus) {
-                        dinerList.get(i).updateTotal();
+        if (v == tipPercent && hasFocus == false) {
+            tipPercentValue = Double.parseDouble(((EditText)v).getText().toString().replace("%", ""));
+            if (tipPercentValue > 50 ) {
+                tipPercentValue = 50;
+            } else if (tipPercentValue < 0) {
+                tipPercentValue = 0;
+            }
+
+            tipSlider.setProgress((int)tipPercentValue);
+
+        } else {
+            for (int i = 0; i < dinerList.size(); i++) {
+                if (v == dinerList.get(i).etName && !hasFocus) {
+                    dinerList.get(i).setName();
+                } else {
+                    for (int j = 0; j < dinerList.get(i).orderList.size(); j++) {
+                        if (v == dinerList.get(i).orderList.get(j) && !hasFocus) {
+                            dinerList.get(i).updateTotal((EditText) v, tipPercentValue, taxPercentage);
+                            calculateGrandTotal();
+                        }
                     }
                 }
             }
         }
+    }
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        if (seekBar == tipSlider) {
+            tipPercentValue = progress;
+            tipPercent.setText(String.format("%.0f", tipPercentValue) + "%");
+            tipPercentValue = tipPercentValue / 100;
+        }
+        for (int i = 0; i < dinerList.size(); i++) {
+            dinerList.get(i).updateTotal(tipPercentValue, taxPercentage);
+        }
+        calculateGrandTotal();
+    }
+
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    public void calculateGrandTotal() {
+        grandTotal = 0.00;
+        for (int i = 0; i < dinerList.size(); i++) {
+            grandTotal += dinerList.get(i).total;
+        }
+        if (tipPercentValue > 1) {
+            tipPercentValue /= 100;
+        }
+        totalTipValue = grandTotal * tipPercentValue;
+        totalTaxValue = grandTotal * taxPercentage;
+        taxDollar.setText(currency + String.format("%,.2f", totalTaxValue));
+        tipDollar.setText(currency + String.format("%,.2f", totalTipValue));
+        textGTotal2.setText(currency + String.format("%,.2f", grandTotal + totalTipValue + totalTaxValue));
     }
 }

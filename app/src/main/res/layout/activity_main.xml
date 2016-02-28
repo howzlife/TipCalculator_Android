@@ -110,7 +110,7 @@
                 android:gravity="right|center_vertical"
                 android:inputType="number"
                 android:selectAllOnFocus="true"
-                android:text="Default: 15" >
+                android:text="15%" >
 
             </EditText>
 
@@ -120,14 +120,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:max="50"
-                android:progress="15" />
-
-            <ImageButton
-                android:contentDescription = "Round Button"
-                android:id="@+id/roundButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/round_48" />
+                android:progress="15"
+                android:indeterminate="false" />
 
         </TableRow>
 
@@ -272,8 +266,7 @@
                 android:layout_marginBottom="3dp"
                 android:layout_marginTop="1dp"
                 android:layout_span="3"
-                android:background="#000000"
-                android:text="" />
+                android:background="#000000" />
 
         </TableRow>
         <TableRow
@@ -316,7 +309,7 @@
 
             <Button
                 android:id="@+id/resetButton"
-                android:layout_width="192dp"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Reset"
@@ -328,26 +321,18 @@
         <TableRow
             android:id="@+id/tableRow9"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
-            <TextView
-                android:id="@+id/fortuneTextBox"
-                android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/calculateTotal"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_span="2"
-                android:contentDescription="Fortune Text"
-                android:gravity="center"
-                android:text="[Insert Fortune Here]" />
-
-            <ImageButton
-                android:id="@+id/fortuneButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:contentDescription="fortune"
-                android:src="@drawable/abc_btn_rating_star_off_mtrl_alpha" />
-
+                android:layout_gravity="center_vertical"
+                android:text="Menu"
+                android:textSize="24dp"
+                android:width="192dp"
+                android:layout_span="3" />
         </TableRow>
 
 

@@ -40,16 +40,21 @@ public class Diner {
         orderList.add(newOrder);
     }
 
-    public void updateTotal() {
+    public void updateTotal(EditText toBeUpdated, double tip, double tax) {
         total = 0.0;
-        Pattern p = Pattern.compile("[0-9]\\.[0-9][0-9]");
+        toBeUpdated.setText("$" + String.format("%,.2f", editTextToDouble(toBeUpdated)));
         for (int i = 0; i < orderList.size(); i++) {
-            String text = orderList.get(i).getText().toString();
-            Matcher m = p.matcher(text);
-            if (m.find()) {
-                total += Double.parseDouble(m.group(0));
-            }
+            total += Double.parseDouble(orderList.get(i).getText().toString().replace("$", "").replace(",", ""));
         }
-        tvSplitBill.setText(String.format("$%,.2f", total));
+        tvSplitBill.setText("$" + String.format("%,.2f", total * (1 + tip + tax)));
+    }
+
+    public void updateTotal(double tip, double tax) {
+        updateTotal(etFirstOrder, tip, tax);
+    }
+
+    public double editTextToDouble(EditText et) {
+        double db = Double.parseDouble(et.getText().toString().replace("$", "").replace(",", ""));
+        return db;
     }
 }
